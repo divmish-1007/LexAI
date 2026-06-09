@@ -12,18 +12,18 @@ def reader_agent(state: LegalState) -> LegalState:
 
     messages = [
         SystemMessage(content="""You are a legal document analyst.
-Given a legal document, you must:
-1. Identify the document type (e.g. Rent Agreement, Job Offer Letter, Loan Agreement, NDA)
-2. Split the document into individual meaningful clauses
+        Given a legal document, you must:
+        1. Identify the document type (e.g. Rent Agreement, Job Offer Letter, Loan Agreement, NDA)
+        2. Split the document into individual meaningful clauses
 
-Respond ONLY in this exact JSON format, no extra text, no markdown:
-{
-    "document_type": "...",
-    "clauses": [
-        "clause 1 text",
-        "clause 2 text"
-    ]
-}"""),
+        Respond ONLY in this exact JSON format, no extra text, no markdown:
+        {
+            "document_type": "...",
+            "clauses": [
+                "clause 1 text",
+                "clause 2 text"
+            ]
+        }"""),
         HumanMessage(content=f"Here is the legal document:\n\n{raw_text}")
     ]
 
