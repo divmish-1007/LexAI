@@ -45,6 +45,7 @@ langgraph==1.2.4
 langgraph-checkpoint==4.1.1
 langgraph-prebuilt==1.1.0
 langgraph-sdk==0.4.2
+langgraph-supervisor==0.0.31
 langsmith==0.8.11
 Lazify==0.4.0
 literalai==0.1.201
