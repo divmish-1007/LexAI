@@ -1,23 +1,12 @@
-from typing import TypedDict
+from langgraph.graph import MessagesState
 
-class LegalState(TypedDict):
-    # Input
-    pdf_path: str
-    user_query: str
-    
-    # Routing
-    input_type: str
-    pdf_type: str
-    query_type: str
-    
-    # PDF processing (legal pipeline)
+class AgentState(MessagesState):
+    pdf_path:str
     raw_text: str
     document_type: str
-    clauses: list[str]
+    clauses: list[dict]
     risky_clauses: list[dict]
     simplified_clauses: list[dict]
     final_summary: str
     
-    # Conversation
-    chat_history: list
-    agent_response: str
+    user_query: str
