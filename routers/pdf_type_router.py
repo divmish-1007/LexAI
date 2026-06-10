@@ -1,8 +1,14 @@
 from graph.state import LegalState
 from config.llm import llm
+import fitz
 
 def pdf_type_router(state: LegalState):
-    raw_text = state.get("raw_text", "")
+    pdf_path = state.get("pdf_path", "")
+
+    doc = fitz.open(pdf_path)
+    raw_text = "\n".join(page.get_text() for page in doc)
+    doc.close()
+
     
     prompt = f""" You are a document classifier.
     Read the following text extracted from a PDF and classify it as either:
@@ -21,4 +27,8 @@ def pdf_type_router(state: LegalState):
     if pdf_type not in ["normal", "legal"]:
         pdf_type = "normal"
     
-    return {**state, "pdf_type":pdf_type}
+    return {
+        **state,
+        "raw_text": raw_text,   
+        "pdf_type":pdf_type
+    }

@@ -5,11 +5,13 @@ from graph.state import LegalState
 from config.llm import llm
 
 def reader_agent(state: LegalState) -> LegalState:
-    # Extract raw text inline
-    doc = fitz.open(state["pdf_path"])
-    raw_text = "\n".join(page.get_text() for page in doc)
-    doc.close()
-
+    raw_text = state.get("raw_text", "")
+    
+    if not raw_text:
+        doc = fitz.open(state["pdf_path"])
+        raw_text = "\n".join(page.get_text() for page in doc)
+        doc.close()
+   
     messages = [
         SystemMessage(content="""You are a legal document analyst.
         Given a legal document, you must:
